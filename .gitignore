@@ -1,0 +1,4 @@
+.idea
+*.iml
+.venv
+test_py_opencv.egg-info
