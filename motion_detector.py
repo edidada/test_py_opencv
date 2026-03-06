@@ -2,6 +2,7 @@ import cv2
 import numpy as np
 import time
 import argparse
+import logging
 
 def detect_motion(video_path=None, min_area=500, show_window=True):
     """
@@ -22,6 +23,13 @@ def detect_motion(video_path=None, min_area=500, show_window=True):
             print(f"无法打开视频文件: {video_path}")
             return
         print(f"处理视频文件: {video_path}")
+
+    if cap.isOpened():
+        width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+        height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+        fps = cap.get(cv2.CAP_PROP_FPS)
+        logging.info(f"视频信息: 宽度={width}, 高度={height}, FPS={fps}")
+        print(f"视频信息: 宽度={width}, 高度={height}, FPS={fps}")
 
     # 使用MOG2背景减法器（对光照变化、阴影有较好鲁棒性）
     bg_subtractor = cv2.createBackgroundSubtractorMOG2(
@@ -92,6 +100,9 @@ def detect_motion(video_path=None, min_area=500, show_window=True):
             print(f"[帧 {frame_count}] 检测到运动！位置信息：")
             for pos in positions:
                 print(f"  - 中心点: {pos['center']}, 框: {pos['bbox']}, 面积: {pos['area']}")
+            logging.info(f"[帧 {frame_count}] 检测到运动！位置信息：")
+            for pos in positions:
+                logging.info(f"  - 中心点: {pos['center']}, 框: {pos['bbox']}, 面积: {pos['area']}")
         else:
             if frame_count % 30 == 0:  # 每秒约打印一次（假设30fps）
                 print(f"[帧 {frame_count}] 无明显运动")
@@ -107,8 +118,10 @@ def detect_motion(video_path=None, min_area=500, show_window=True):
     cv2.destroyAllWindows()
 
     print(f"\n处理完成。共 {frame_count} 帧，检测到运动的帧数: {motion_detected_frames}")
+    logging.info(f"处理完成。共 {frame_count} 帧，检测到运动的帧数: {motion_detected_frames}")
 
 if __name__ == "__main__":
+    logging.basicConfig(filename='motion_log.txt', level=logging.INFO, format='%(asctime)s - %(message)s')
     parser = argparse.ArgumentParser(description="视频/摄像头运动检测 + 位置输出")
     parser.add_argument("--video", type=str, default=None, help="视频文件路径（可选，默认为摄像头）")
     parser.add_argument("--min_area", type=int, default=500, help="最小运动面积阈值")
