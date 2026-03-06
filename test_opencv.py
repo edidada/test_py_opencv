@@ -2,6 +2,7 @@ import cv2
 
 # 测试 OpenCV 是否安装成功
 print("OpenCV 版本:", cv2.__version__)
+print(cv2.__file__)
 
 # 创建一个简单的测试图像 (黑色图像)
 img = cv2.imread('test_image.jpg')  # 如果有图像文件，可以测试读取
