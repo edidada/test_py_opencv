@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 
-def main():
+if __name__ == "__main__":
     # 测试 OpenCV 是否安装成功
     print("OpenCV 版本:", cv2.__version__)
     print(cv2.__file__)
