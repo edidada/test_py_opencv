@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "test-py-opencv"
+version = "0.1.0"
+description = "Test OpenCV Project"
+authors = ["Your Name"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+opencv-python-headless = "^4.8.0"
+numpy = "^1.24.0"
+moviepy = "^1.0.3"
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
