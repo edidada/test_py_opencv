@@ -1,0 +1,28 @@
+[project]
+name = "test-py-opencv"
+version = "0.1.0"
+description = "OpenCV experiments: motion detection, video subtitles and image tests"
+readme = "README.md"
+requires-python = ">=3.12"
+authors = [
+    { name = "somessyy" },
+]
+dependencies = [
+    "opencv-python>=4.13,<5.0",
+    "numpy>=2.4,<3.0",
+]
+
+[tool.poetry]
+package-mode = false
+
+[tool.poetry.group.dev.dependencies]
+pytest = ">=8.0"
+
+# Heavy video dependencies used only by add_subtitles.py; skipped in CI.
+[tool.poetry.group.video.dependencies]
+moviepy = ">=2.0"
+openai-whisper = ">=20240930"
+
+[build-system]
+requires = ["poetry-core>=2.0"]
+build-backend = "poetry.core.masonry.api"

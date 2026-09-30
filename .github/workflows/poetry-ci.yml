@@ -1,0 +1,47 @@
+# Standard Poetry build/test workflow
+name: Poetry CI
+
+on:
+  push:
+    branches: [ "main", "main_poetry" ]
+  pull_request:
+    branches: [ "main" ]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python 3.13
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Install Poetry
+        run: pipx install poetry
+
+      - name: Cache Poetry dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pypoetry
+          key: ${{ runner.os }}-poetry-${{ hashFiles('poetry.lock') }}
+          restore-keys: ${{ runner.os }}-poetry-
+
+      - name: Install system deps for OpenCV
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libgl1
+
+      - name: Install dependencies
+        run: poetry install --without video
+
+      - name: Validate project config
+        run: poetry check --lock
+
+      - name: Run tests
+        run: poetry run pytest -v
