@@ -3,9 +3,9 @@ name: Poetry CI
 
 on:
   push:
-    branches: [ "main", "main_poetry" ]
+    branches: [ "main", "main_poetry", "poetry" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "main", "poetry" ]
 
 permissions:
   contents: read
