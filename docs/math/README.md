@@ -1,15 +1,22 @@
 # OpenCV 数学知识地图（面向新手）
 
-这套文档回答一个问题：**学 OpenCV 到底需要哪些数学？它们分别藏在哪个函数里？**
+这套文档回答一个问题：**学 OpenCV 到底需要哪些数学？它们分别藏在哪个函数里？** 按"高中 → 本科 → 硕博"三个阶段拆成 **12 个 md 文件**，每个数学知识点都对应到具体的 `cv2` 函数并给出可运行示例；**全部参考书均附 ISBN**（见总表）。
 
-按学习阶段分成三份，难度递进，每一份里的知识点都尽量对应到具体的 `cv2` 函数，并给出可运行的小例子。
+## 目录
 
-| 文档 | 阶段 | 你会学到什么 |
+| 文档 | 阶段 | 内容 |
 |---|---|---|
 | [01-高中数学.md](01-高中数学.md) | 高中 | 向量、三角函数、直线与圆、圆锥曲线、函数变换、数列、概率初步 |
-| [02-本科数学.md](02-本科数学.md) | 本科 | 线性代数、微积分、概率论与数理统计、数值分析 |
-| [03-硕博数学.md](03-硕博数学.md) | 硕博 | 射影几何与多视图几何、数值优化、凸优化、随机估计、深度学习数学 |
-| [04-参考书目总表.md](04-参考书目总表.md) | 全部 | **34 本书完整书单（全部带 ISBN）** + 按 OpenCV 主题的反向查书索引 |
+| [02-线性代数.md](02-线性代数.md) | 本科 | 矩阵=图像、最小二乘、特征值/PCA、SVD |
+| [03-高等数学与傅里叶分析.md](03-高等数学与傅里叶分析.md) | 本科 | 梯度→边缘、泰勒→光流、极值、矩、频域滤波 |
+| [04-概率论与数理统计.md](04-概率论与数理统计.md) | 本科 | 噪声模型、高斯模糊、Otsu、直方图、贝叶斯、EM |
+| [05-数值分析.md](05-数值分析.md) | 本科 | 插值、数值微积分、方程组与迭代、病态与归一化 |
+| [06-射影几何与多视图几何.md](06-射影几何与多视图几何.md) | 硕博 | 齐次坐标、相机模型、对极几何、标定、三角化 |
+| [07-数值优化与李群.md](07-数值优化与李群.md) | 硕博 | 高斯牛顿、LM、BA、SO(3)/李代数、四元数 |
+| [08-凸优化与图模型.md](08-凸优化与图模型.md) | 硕博 | SVM 对偶与核、图割、CRF、EM |
+| [09-概率状态估计.md](09-概率状态估计.md) | 硕博 | 贝叶斯滤波、卡尔曼、MOG2、SLAM |
+| [10-深度学习数学.md](10-深度学习数学.md) | 硕博 | 反向传播、Softmax+交叉熵、Adam、正则化=先验 |
+| [11-参考书目总表.md](11-参考书目总表.md) | 全部 | **34 本书完整书单（全部带 ISBN）** + 按 OpenCV 主题的反向查书索引 |
 
 ## 为什么 OpenCV 需要数学？
 
@@ -24,36 +31,38 @@
 
 ## OpenCV 常用函数 ↔ 数学知识点速查表
 
-| cv2 函数 | 数学知识点 | 阶段 | 详见 |
-|---|---|---|---|
-| `getRotationMatrix2D` | 旋转矩阵、三角函数 | 高中 | [01] |
-| `HoughLinesP` | 直线方程、参数化 | 高中 | [01] |
-| `HoughCircles` | 圆的方程 | 高中 | [01] |
-| `fitEllipse` | 圆锥曲线（椭圆一般方程） | 高中 | [01] |
-| `addWeighted` / `concat` | 向量线性运算 | 高中 | [01] |
-| `resize`（双线性/立方） | 插值法 | 本科 | [02] |
-| `filter2D` / `GaussianBlur` | 卷积、正态分布 | 本科 | [02] |
-| `Sobel` / `Scharr` / `Canny` | 偏导数、梯度 | 本科 | [02] |
-| `threshold(THRESH_OTSU)` | 方差、最大类间方差 | 本科 | [02] |
-| `LUT` / `convertScaleAbs` | 函数图像与变换、幂函数 | 高中 | [01] |
-| `calcHist` / `equalizeHist` | 直方图、前缀和 | 高中→本科 | [01][02] |
-| `goodFeaturesToTrack` / `cornerHarris` | 特征值、结构张量 | 本科 | [02] |
-| `findHomography` / `findFundamentalMat` | 齐次坐标、最小二乘、SVD | 本科→硕博 | [02][03] |
-| `SVDecomp` / `eigen` / `invert` | 矩阵分解 | 本科 | [02] |
-| `solve` / `fitLine` / `phaseCorrelate` | 线性方程组、最小二乘、DFT | 本科 | [02] |
-| `dft` / `idft` / `magnitude` | 傅里叶变换 | 本科 | [02] |
-| `calcOpticalFlowPyrLK` | 泰勒展开、光流约束方程 | 本科 | [02] |
-| `calibrateCamera` / `decomposeProjectionMatrix` | 相机模型、射影几何 | 硕博 | [03] |
-| `solvePnP` / `solvePnPRefineLM` | 非线性最小二乘（Levenberg–Marquardt） | 硕博 | [03] |
-| `stereoRectify` / `reprojectImageTo3D` | 对极几何、深度三角测量 | 硕博 | [03] |
-| `KalmanFilter` | 状态空间、贝叶斯估计 | 硕博 | [03] |
-| `background_subtractor` / MOG2 | 高斯混合模型 | 硕博 | [03] |
-| `dnn`（YOLO/ResNet 等） | 链式法则、反向传播、梯度下降 | 硕博 | [03] |
+| cv2 函数 | 数学知识点 | 详见 |
+|---|---|---|
+| `getRotationMatrix2D` | 旋转矩阵、三角函数 | [01] |
+| `HoughLinesP` / `HoughCircles` | 直线/圆的参数化 | [01] |
+| `fitEllipse` | 圆锥曲线（一般二次方程） | [01] |
+| `addWeighted` / `norm` | 向量运算、点积 | [01] |
+| `LUT` / `convertScaleAbs` | 函数图像与变换 | [01] |
+| `findHomography` / `invert` / `matmul` | 矩阵复合、最小二乘、SVD | [02] |
+| `goodFeaturesToTrack` / `cornerHarris` | 特征值、结构张量 | [02] |
+| `SVDecomp` / `PCA` | 低秩近似、主成分 | [02] |
+| `Sobel` / `Canny` | 偏导数、梯度 | [03] |
+| `calcOpticalFlowPyrLK` | 泰勒展开、光流约束 | [03] |
+| `contourArea` / `moments` / `integral` | 积分、矩、前缀和 | [03] |
+| `dft` / `phaseCorrelate` | 傅里叶变换 | [03] |
+| `GaussianBlur` / `medianBlur` | 正态分布、中位数抗噪 | [04] |
+| `threshold(THRESH_OTSU)` | 方差最大化判别 | [04] |
+| `calcHist` / `equalizeHist` | 频率≈概率 | [04] |
+| `createBackgroundSubtractorMOG2` / `ml.EM` | 贝叶斯、GMM、EM | [04] |
+| `resize` / `remap` | 插值与振铃权衡 | [05] |
+| `solve` / `TermCriteria` | 方程组与迭代 | [05] |
+| `calibrateCamera` / `projectPoints` | 齐次坐标、相机模型 | [06] |
+| `findEssentialMat` / `triangulatePoints` / `stereoRectify` | 对极几何 | [06] |
+| `solvePnP` / `solvePnPRefineLM` | LM 非线性最小二乘 | [07] |
+| `Rodrigues` / `quatToMat` | 李群李代数、双覆盖 | [07] |
+| `ml.SVM` / `grabCut` | 凸对偶、图割 | [08] |
+| `KalmanFilter` | 状态空间、贝叶斯递推 | [09] |
+| `dnn.readNet*` / `NMSBoxes` | 反向传播、IoU 测度 | [10] |
 
 ## 建议学习路径
 
-1. **只会高中数学**：先把 [01] 过一遍，你就能理解旋转、霍夫检测、轮廓拟合这些"几何类"功能。
-2. **在读本科（或非本科但想补）**：重点读 [02] 的线性代数与微积分部分——这两块覆盖了 OpenCV 80% 的 API。
-3. **想做标定、SLAM、三维重建、深度学习**：读 [03]，按"多视图几何 → 数值优化 → 概率估计 → 深度学习"的顺序推进。
+1. **只会高中数学**：读 [01]，就能理解旋转、霍夫检测、椭圆拟合、灰度曲线这些"几何与函数类"功能。
+2. **本科在读或想补**：[02] 线性代数 + [03] 高数覆盖 OpenCV 80% 的 API；[04] 统计管去噪与阈值；[05] 数值分析解释所有"插值/容差/迭代"参数。
+3. **做标定、三维重建、SLAM、深度学习**：按 [06] 多视图 → [07] 优化 → [08] 凸优化/图模型 → [09] 状态估计 → [10] 深度学习的顺序推进。
 
-每份文档末尾都附了**参考书目与 ISBN**（含中文原版教材和经典英文专著的中译本），按 ISBN 可以直接买到对应版本。
+买书直接用 [11-参考书目总表.md](11-参考书目总表.md)：34 本书全部带 ISBN，还附"按 OpenCV 主题反查该读哪本哪章"的索引表。
