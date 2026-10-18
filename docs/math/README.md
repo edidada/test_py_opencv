@@ -34,7 +34,9 @@
 | `filter2D` / `GaussianBlur` | 卷积、正态分布 | 本科 | [02] |
 | `Sobel` / `Scharr` / `Canny` | 偏导数、梯度 | 本科 | [02] |
 | `threshold(THRESH_OTSU)` | 方差、最大类间方差 | 本科 | [02] |
-| `calcHist` / `equalizeHist` | 直方图（频次统计） | 本科 | [02] |
+| `LUT` / `convertScaleAbs` | 函数图像与变换、幂函数 | 高中 | [01] |
+| `calcHist` / `equalizeHist` | 直方图、前缀和 | 高中→本科 | [01][02] |
+| `goodFeaturesToTrack` / `cornerHarris` | 特征值、结构张量 | 本科 | [02] |
 | `findHomography` / `findFundamentalMat` | 齐次坐标、最小二乘、SVD | 本科→硕博 | [02][03] |
 | `SVDecomp` / `eigen` / `invert` | 矩阵分解 | 本科 | [02] |
 | `solve` / `fitLine` / `phaseCorrelate` | 线性方程组、最小二乘、DFT | 本科 | [02] |
